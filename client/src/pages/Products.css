@@ -1,0 +1,201 @@
+/* ── Section Wrapper ────────────────────────────────────── */
+.products-section {
+  padding: 80px 24px 120px;
+  background: transparent;
+}
+
+.products-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.products-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.products-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.products-title .highlight {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.products-subtitle {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ── Controls ───────────────────────────────────────────── */
+.products-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.sort-select {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 180px;
+}
+
+.sort-select:focus {
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.sort-select option {
+  background: #111827;
+}
+
+/* ── Category Filters ───────────────────────────────────── */
+.category-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  border-color: rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.06);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  border-color: transparent;
+  color: #0a0e1a;
+  font-weight: 700;
+}
+
+/* ── Result Count ───────────────────────────────────────── */
+.result-count {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+  margin: 0 0 32px;
+}
+
+/* ── Products Grid ──────────────────────────────────────── */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+/* ── Skeleton Loader ────────────────────────────────────── */
+.loading-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.skeleton-card {
+  width: 260px;
+  height: 360px;
+  border-radius: 18px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Error / Empty ──────────────────────────────────────── */
+.error-state,
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.error-state span,
+.empty-state span {
+  font-size: 3rem;
+}
+
+.error-state p,
+.empty-state p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.error-state button,
+.empty-state button {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  color: #0a0e1a;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+
+.error-state button:hover,
+.empty-state button:hover {
+  opacity: 0.85;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .products-controls {
+    flex-direction: column;
+  }
+
+  .sort-select {
+    width: 100%;
+    max-width: 560px;
+  }
+}

@@ -1,22 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+import "./index.css";
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/products")
-      .then(res => res.json())
-      .then(data => setProducts(data));
-  }, []);
+  const handleAddToCart = (product) => {
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+        );
+      }
+      return [...prev, { ...product, qty: 1 }];
+    });
+  };
+
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
 
   return (
-    <div>
-      <h1>SV Traders</h1>
-      {products.map(p => (
-        <div key={p.id}>
-          <h3>{p.name}</h3>
-        </div>
-      ))}
+    <div className="app">
+      <Navbar cartCount={totalItems} />
+      <main>
+        <Home />
+        <Products onAddToCart={handleAddToCart} />
+      </main>
+      <footer id="contact">
+        <p>
+          © 2024 <span>SV Traders</span> — Electrical &amp; Plumbing Supplies &nbsp;|&nbsp;
+          Made with ❤️ in India
+        </p>
+      </footer>
     </div>
   );
 }
