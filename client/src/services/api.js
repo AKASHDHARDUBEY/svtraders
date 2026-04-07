@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://svtraders-q5t6.onrender.com";
 
 export const getProducts = async (search = "", category = "All") => {
   const params = new URLSearchParams();

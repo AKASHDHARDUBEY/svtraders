@@ -2,9 +2,9 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors()); // Allow all origins for seamless Vercel/Render integration
 app.use(express.json());
 
 // ── Product Data ──────────────────────────────────────────────
@@ -160,7 +160,8 @@ app.get("/", (req, res) => {
   res.json({ message: "SV Traders API running ⚡" });
 });
 
-app.get("/products", (req, res) => {
+// API routes (supports both /products and /api/products)
+const productHandler = (req, res) => {
   const { search, category } = req.query;
   let result = [...products];
 
@@ -175,18 +176,28 @@ app.get("/products", (req, res) => {
   }
 
   res.json(result);
-});
+};
 
-app.get("/products/:id", (req, res) => {
+const productByIdHandler = (req, res) => {
   const product = products.find((p) => p.id === parseInt(req.params.id));
   if (!product) return res.status(404).json({ error: "Product not found" });
   res.json(product);
-});
+};
 
-app.get("/categories", (req, res) => {
+const categoriesHandler = (req, res) => {
   const cats = ["All", ...new Set(products.map((p) => p.category))];
   res.json(cats);
-});
+};
+
+// Direct routes (dev / backward compat)
+app.get("/products", productHandler);
+app.get("/products/:id", productByIdHandler);
+app.get("/categories", categoriesHandler);
+
+// /api prefixed routes (production behind Nginx)
+app.get("/api/products", productHandler);
+app.get("/api/products/:id", productByIdHandler);
+app.get("/api/categories", categoriesHandler);
 
 // ── Start Server ────────────────────────────────────────────────
 app.listen(PORT, () => {
